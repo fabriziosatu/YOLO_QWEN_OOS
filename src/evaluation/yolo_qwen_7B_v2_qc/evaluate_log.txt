@@ -1,0 +1,77 @@
+nohup: ignoring input
+
+======================================================================
+  Valutazione pipeline YOLO + Qwen v4.1 (risposta testuale, modulo v2)
+======================================================================
+[1/3] Carico detector noaug ← '/cache/fsaturnino/Progetto_tesi_Qwen/weights/phase1/phase1_yolo_final/weights/best.pt'
+[2/3] Carico detector aug   ← '/cache/fsaturnino/Progetto_tesi_Qwen/weights/phase1/phase1_yolo_final_aug/weights/best.pt'
+[3/3] Carico Qwen2.5-VL     ← '/cache/fsaturnino/Progetto_tesi_Qwen/hf_models/Qwen2.5-VL-7B-Instruct'
+  [Qwen] Carico processor da /cache/fsaturnino/Progetto_tesi_Qwen/hf_models/Qwen2.5-VL-7B-Instruct
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+  [Qwen] Carico modello (torch.bfloat16) ...
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:05,  1.34s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:02<00:04,  1.41s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:04<00:02,  1.38s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:05<00:01,  1.36s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:06<00:00,  1.13s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:06<00:00,  1.24s/it]
+  [Qwen] Modello pronto su cuda
+
+  Immagini test : 1679
+  CONF          : [0.25, 0.5]
+  IOU           : [0.0, 0.25, 0.5, 0.75]
+
+Fase 1/2: YOLO inference...
+  conf=0.25: YOLO completato su 1679 immagini
+  conf=0.5: YOLO completato su 1679 immagini
+
+Fase 2/2: Qwen inference (immagine annotata + coordinate nel prompt)...
+  det=noaug  conf=0.25  prompt='no_context'
+    → 4718 box in 1692.9s (0.36s/box) | Qwen: YES=313  NO=4405
+  det=noaug  conf=0.25  prompt='context'
+    → 4718 box in 1692.7s (0.36s/box) | Qwen: YES=397  NO=4321
+  det=aug  conf=0.25  prompt='no_context'
+    → 5261 box in 1879.8s (0.36s/box) | Qwen: YES=375  NO=4886
+  det=aug  conf=0.25  prompt='context'
+    → 5261 box in 1887.7s (0.36s/box) | Qwen: YES=448  NO=4813
+  det=noaug  conf=0.5  prompt='no_context'
+    → 3814 box in 1364.5s (0.36s/box) | Qwen: YES=261  NO=3553
+  det=noaug  conf=0.5  prompt='context'
+    → 3814 box in 1368.5s (0.36s/box) | Qwen: YES=336  NO=3478
+  det=aug  conf=0.5  prompt='no_context'
+    → 4391 box in 1569.8s (0.36s/box) | Qwen: YES=346  NO=4045
+  det=aug  conf=0.5  prompt='context'
+    → 4391 box in 1573.9s (0.36s/box) | Qwen: YES=413  NO=3978
+
+Calcolo metriche...
+  noaug no_context   conf=0.25 iou=0.0 | TPR=0.057 FPR=0.001 FNR=0.945 | YOLO=4718 Qwen_YES=313 Qwen_NO=4405 | YES_corr=307 YES_err=6 NO_corr=256 NO_err=4149
+  noaug context      conf=0.25 iou=0.0 | TPR=0.072 FPR=0.002 FNR=0.930 | YOLO=4718 Qwen_YES=397 Qwen_NO=4321 | YES_corr=387 YES_err=10 NO_corr=252 NO_err=4069
+  aug   no_context   conf=0.25 iou=0.0 | TPR=0.067 FPR=0.002 FNR=0.933 | YOLO=5261 Qwen_YES=375 Qwen_NO=4886 | YES_corr=363 YES_err=12 NO_corr=259 NO_err=4627
+  aug   context      conf=0.25 iou=0.0 | TPR=0.080 FPR=0.003 FNR=0.920 | YOLO=5261 Qwen_YES=448 Qwen_NO=4813 | YES_corr=433 YES_err=15 NO_corr=256 NO_err=4557
+  noaug no_context   conf=0.25 iou=0.25 | TPR=0.057 FPR=0.001 FNR=0.945 | YOLO=4718 Qwen_YES=313 Qwen_NO=4405 | YES_corr=306 YES_err=7 NO_corr=267 NO_err=4138
+  noaug context      conf=0.25 iou=0.25 | TPR=0.072 FPR=0.002 FNR=0.930 | YOLO=4718 Qwen_YES=397 Qwen_NO=4321 | YES_corr=386 YES_err=11 NO_corr=263 NO_err=4058
+  aug   no_context   conf=0.25 iou=0.25 | TPR=0.067 FPR=0.002 FNR=0.934 | YOLO=5261 Qwen_YES=375 Qwen_NO=4886 | YES_corr=362 YES_err=13 NO_corr=263 NO_err=4623
+  aug   context      conf=0.25 iou=0.25 | TPR=0.080 FPR=0.003 FNR=0.921 | YOLO=5261 Qwen_YES=448 Qwen_NO=4813 | YES_corr=432 YES_err=16 NO_corr=260 NO_err=4553
+  noaug no_context   conf=0.25 iou=0.5 | TPR=0.056 FPR=0.002 FNR=0.946 | YOLO=4718 Qwen_YES=313 Qwen_NO=4405 | YES_corr=301 YES_err=12 NO_corr=411 NO_err=3994
+  noaug context      conf=0.25 iou=0.5 | TPR=0.070 FPR=0.003 FNR=0.932 | YOLO=4718 Qwen_YES=397 Qwen_NO=4321 | YES_corr=379 YES_err=18 NO_corr=405 NO_err=3916
+  aug   no_context   conf=0.25 iou=0.5 | TPR=0.066 FPR=0.004 FNR=0.935 | YOLO=5261 Qwen_YES=375 Qwen_NO=4886 | YES_corr=356 YES_err=19 NO_corr=396 NO_err=4490
+  aug   context      conf=0.25 iou=0.5 | TPR=0.078 FPR=0.005 FNR=0.923 | YOLO=5261 Qwen_YES=448 Qwen_NO=4813 | YES_corr=422 YES_err=26 NO_corr=389 NO_err=4424
+  noaug no_context   conf=0.25 iou=0.75 | TPR=0.046 FPR=0.012 FNR=0.955 | YOLO=4718 Qwen_YES=313 Qwen_NO=4405 | YES_corr=250 YES_err=63 NO_corr=1279 NO_err=3126
+  noaug context      conf=0.25 iou=0.75 | TPR=0.058 FPR=0.016 FNR=0.944 | YOLO=4718 Qwen_YES=397 Qwen_NO=4321 | YES_corr=310 YES_err=87 NO_corr=1255 NO_err=3066
+  aug   no_context   conf=0.25 iou=0.75 | TPR=0.054 FPR=0.015 FNR=0.947 | YOLO=5261 Qwen_YES=375 Qwen_NO=4886 | YES_corr=292 YES_err=83 NO_corr=1168 NO_err=3718
+  aug   context      conf=0.25 iou=0.75 | TPR=0.063 FPR=0.020 FNR=0.938 | YOLO=5261 Qwen_YES=448 Qwen_NO=4813 | YES_corr=341 YES_err=107 NO_corr=1144 NO_err=3669
+  noaug no_context   conf=0.5 iou=0.0 | TPR=0.048 FPR=0.001 FNR=0.952 | YOLO=3814 Qwen_YES=261 Qwen_NO=3553 | YES_corr=258 YES_err=3 NO_corr=94 NO_err=3459
+  noaug context      conf=0.5 iou=0.0 | TPR=0.062 FPR=0.001 FNR=0.939 | YOLO=3814 Qwen_YES=336 Qwen_NO=3478 | YES_corr=332 YES_err=4 NO_corr=93 NO_err=3385
+  aug   no_context   conf=0.5 iou=0.0 | TPR=0.063 FPR=0.001 FNR=0.937 | YOLO=4391 Qwen_YES=346 Qwen_NO=4045 | YES_corr=340 YES_err=6 NO_corr=67 NO_err=3978
+  aug   context      conf=0.5 iou=0.0 | TPR=0.076 FPR=0.001 FNR=0.924 | YOLO=4391 Qwen_YES=413 Qwen_NO=3978 | YES_corr=407 YES_err=6 NO_corr=67 NO_err=3911
+  noaug no_context   conf=0.5 iou=0.25 | TPR=0.048 FPR=0.001 FNR=0.952 | YOLO=3814 Qwen_YES=261 Qwen_NO=3553 | YES_corr=258 YES_err=3 NO_corr=96 NO_err=3457
+  noaug context      conf=0.5 iou=0.25 | TPR=0.062 FPR=0.001 FNR=0.939 | YOLO=3814 Qwen_YES=336 Qwen_NO=3478 | YES_corr=332 YES_err=4 NO_corr=95 NO_err=3383
+  aug   no_context   conf=0.5 iou=0.25 | TPR=0.063 FPR=0.001 FNR=0.937 | YOLO=4391 Qwen_YES=346 Qwen_NO=4045 | YES_corr=340 YES_err=6 NO_corr=69 NO_err=3976
+  aug   context      conf=0.5 iou=0.25 | TPR=0.076 FPR=0.001 FNR=0.924 | YOLO=4391 Qwen_YES=413 Qwen_NO=3978 | YES_corr=407 YES_err=6 NO_corr=69 NO_err=3909
+  noaug no_context   conf=0.5 iou=0.5 | TPR=0.048 FPR=0.001 FNR=0.953 | YOLO=3814 Qwen_YES=261 Qwen_NO=3553 | YES_corr=257 YES_err=4 NO_corr=190 NO_err=3363
+  noaug context      conf=0.5 iou=0.5 | TPR=0.061 FPR=0.001 FNR=0.939 | YOLO=3814 Qwen_YES=336 Qwen_NO=3478 | YES_corr=330 YES_err=6 NO_corr=188 NO_err=3290
+  aug   no_context   conf=0.5 iou=0.5 | TPR=0.062 FPR=0.002 FNR=0.938 | YOLO=4391 Qwen_YES=346 Qwen_NO=4045 | YES_corr=335 YES_err=11 NO_corr=145 NO_err=3900
+  aug   context      conf=0.5 iou=0.5 | TPR=0.074 FPR=0.003 FNR=0.927 | YOLO=4391 Qwen_YES=413 Qwen_NO=3978 | YES_corr=398 YES_err=15 NO_corr=141 NO_err=3837
+  noaug no_context   conf=0.5 iou=0.75 | TPR=0.041 FPR=0.007 FNR=0.959 | YOLO=3814 Qwen_YES=261 Qwen_NO=3553 | YES_corr=221 YES_err=40 NO_corr=821 NO_err=2732
+  noaug context      conf=0.5 iou=0.75 | TPR=0.052 FPR=0.011 FNR=0.949 | YOLO=3814 Qwen_YES=336 Qwen_NO=3478 | YES_corr=279 YES_err=57 NO_corr=804 NO_err=2674
+  aug   no_context   conf=0.5 iou=0.75 | TPR=0.052 FPR=0.013 FNR=0.949 | YOLO=4391 Qwen_YES=346 Qwen_NO=4045 | YES_corr=278 YES_err=68 NO_corr=712 NO_err=3333
+  aug   context      conf=0.5 iou=0.75 | TPR=0.060 FPR=0.016 FNR=0.940 | YOLO=4391 Qwen_YES=413 Qwen_NO=3978 | YES_corr=326 YES_err=87 NO_corr=693 NO_err=3285
+
+Risultati salvati in: /cache/fsaturnino/Progetto_tesi_Qwen/results/yolo_qwen_7B_v2_qc/metrics_v4_1.json
+Riepilogo testuale: /cache/fsaturnino/Progetto_tesi_Qwen/results/yolo_qwen_7B_v2_qc/metrics_v4_1_summary.txt
