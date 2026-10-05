@@ -1,4 +1,4 @@
-# Out-of-Stock Retail Detection: Evaluating Zero-Shot VLM Core Capabilities
+# Out-of-Stock Retail Detection: Evaluating VLM Core Capabilities
 
 This is a private repository dedicated to evaluating and highlighting the intrinsic limitations of frozen, non-fine-tuned Vision-Language Models (VLMs) when applied to a highly domain-specific task: **Out-of-Stock (OOS) retail shelf detection**.
 
