@@ -25,7 +25,7 @@ All experimental multi-modal pipelines within this repository are built around t
 ---
 
 ## 📊 Dataset & Privacy Restrictions
-⚠️ **Important Notice regarding Data Availability:** The evaluation datasets utilized to run the benchmarks consist of private, high-resolution surveillance streams capturing retail supermarket shelf gaps. Due to strict corporate non-disclosure agreements (NDAs) and privacy regulations, **the raw images and ground truth bounding box label annotations cannot be uploaded or distributed within this repository**. 
+> ⚠️ **Important Notice regarding Data Availability:** The evaluation datasets utilized to run the benchmarks consist of private, high-resolution surveillance streams capturing retail supermarket shelf gaps, utilized as part of the research conducted at the **MIVIA Lab (University of Salerno)**. Due to strict corporate non-disclosure agreements (NDAs) and privacy regulations, **the raw images and ground truth bounding box label annotations cannot be uploaded or distributed within this repository**. 
 
 However, the complete programmatic evaluation matrices, structural JSON evaluation outputs, and unbacked logging artifacts are maintained inside the localized project directory footprints.
 
